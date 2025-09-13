@@ -26,3 +26,5 @@ async def dict_save(vals: DictItem):
     except Exception as e:
         logger.LogEntry(str(e))
         return {"Error: " + str(e)}
+    
+
