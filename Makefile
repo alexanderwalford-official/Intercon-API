@@ -1,5 +1,5 @@
 make:
-	fastapi dev .\main.py
+	fastapi dev main.py
 
 tables:
 	python3 .\create_tables.py

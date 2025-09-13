@@ -180,3 +180,4 @@ cython_debug/
 .cursorignore
 .cursorindexingignore
 mainframe.db
+last_ip.txt

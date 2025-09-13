@@ -1,8 +1,12 @@
 from fastapi import FastAPI, Response, status, Request
+import update_dns as dns
 from main_methods import *
 from classes import *
 from logger import *
 import datetime as dt
+
+# update DNS
+dns.main()
 
 app = FastAPI()
 methods = main_methods()
