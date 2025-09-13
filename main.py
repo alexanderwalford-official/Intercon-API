@@ -12,14 +12,14 @@ logger = systemlogger()
 def read_root():
     return {"OK"}
 
-@app.post("/dict-save")
-async def dict_save(vals: DictItem):
+@app.post("/send_data")
+def save_data(vals: DictItem):
     try:
         conn, cursor = methods.connect_db()
         logger.LogEntry("UID: " + vals.uid)
         cursor.execute("INSERT INTO uid_data (uid, timestamp) VALUES (?, ?)", (vals.uid, dt.datetime.now().isoformat()))
         conn.commit()
-        cursor.execute("INSERT INTO dict_data (uid, data) VALUES (?, ?)", (vals.uid, str(vals.data)))
+        cursor.execute("INSERT INTO dict_data (uid, oid, data) VALUES (?, ?, ?)", (vals.uid, vals.oid, str(vals.data)))
         conn.commit()
         methods.close_db(conn, cursor)
         return {"OK"}
@@ -27,4 +27,20 @@ async def dict_save(vals: DictItem):
         logger.LogEntry(str(e))
         return {"Error: " + str(e)}
     
-
+@app.post("/get_data")
+def find_data(vals: DictItemGet):
+    conn, cursor = methods.connect_db()
+    logger.LogEntry("UID: " + vals.uid)
+    query = "SELECT data from dict_data WHERE uid = ? AND oid = ?"
+    try:
+        cursor.execute(query, (vals.uid, vals.oid))
+        output = cursor.fetchall()
+        data = []
+        for row in output:
+            data.append(row)
+        conn.commit()
+        methods.close_db(conn, cursor)
+        return data
+    except Exception as e:
+        logger.LogEntry(str(e))
+        return {"Error: " + str(e)}
