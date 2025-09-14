@@ -34,8 +34,13 @@ class QueryItem(BaseModel):
 
 class SaveDataItem(BaseModel):
     api_key: str
-    auth_key: str
+    uid: str
     file_name: str
     file_content: str
     folder: str
     notes: str
+
+
+class SaveDataItemGet(BaseModel):
+    api_key: str
+    uid: str

@@ -228,7 +228,30 @@ def admin_query(response: Response, request: Request, vals:QueryItem):
     else:
         return {"Invalid permission!"}
     
-@app.post("/save-data")
-def game_save_data(response: Response, request: Request, vals:SaveDataItem):
-
-    return
+@app.post("/save_game_data")
+def game_save_data(vals:SaveDataItem):
+    if methods.check_api_key(vals.api_key):
+        conn, cursor = methods.connect_db()
+        query = "INSERT INTO game_save_files (uid, file_name, file_content, folder, notes) VALUES (?, ?, ?, ?, ?)"
+        cursor.execute(query, (vals.uid, vals.file_name, vals.file_content, vals.folder, vals.notes))
+        conn.commit()
+        methods.close_db(conn, cursor)
+        return {"OK"}
+    else:
+        return {"Error: Invalid API key!"}
+    
+@app.post("/get_game_data")
+def get_save_data(vals: SaveDataItemGet):
+    if methods.check_api_key(vals.api_key):
+        query = "SELECT * FROM game_save_files WHERE uid = ?"
+        conn, cursor = methods.connect_db()
+        cursor.execute(query, (vals.uid,))
+        output = cursor.fetchall()
+        conn.commit()
+        methods.close_db(conn, cursor)
+        data = []
+        for row in output:
+            data.append(row)
+        return data
+    else:
+        return {"Error: Invalid API key!"}

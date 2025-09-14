@@ -51,3 +51,13 @@ CREATE TABLE IF NOT EXISTS auth_tokens (
     email VARCHAR(255) NOT NULL,
     FOREIGN KEY (email) REFERENCES users(email)
 );
+
+-- Table: game_save_files
+CREATE TABLE IF NOT EXISTS game_save_files (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    uid VARCHAR(255) NOT NULL,
+    file_name VARCHAR(255) NOT NULL,
+    file_content TEXT NOT NULL,
+    folder VARCHAR(255) NOT NULL,
+    notes TEXT NOT NULL
+);
