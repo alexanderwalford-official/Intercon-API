@@ -180,4 +180,8 @@ cython_debug/
 .cursorignore
 .cursorindexingignore
 mainframe.db
-last_ip.txt
+*.txt
+*.key
+*.ca-bundle
+*.crt
+*.pem

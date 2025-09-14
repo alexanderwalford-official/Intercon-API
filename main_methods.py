@@ -16,3 +16,17 @@ class main_methods:
     def close_db(self, conn, cursor):
         cursor.close()
         conn.close()
+
+    def check_api_key(self, key):
+        conn, cursor = self.connect_db()
+        query = "SELECT key from api_keys WHERE key = ?"
+        try:
+            cursor.execute(query, (key))
+            output = cursor.fetchall()
+            if output.count:
+                return True
+            else:
+                return False
+        except:
+            return False
+        

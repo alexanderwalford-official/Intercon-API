@@ -3,3 +3,5 @@ pydantic
 uvicorn[standard]
 cryptography
 python-dotenv
+requests
+jinja2

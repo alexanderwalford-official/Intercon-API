@@ -1,25 +1,27 @@
 import sqlite3
 
-# path to your SQL file
-sql_file_path = "structure.sql" 
+def main():
 
-# connect to the SQLite database
-connection_obj = sqlite3.connect("mainframe.db")
+    # path to your SQL file
+    sql_file_path = "structure.sql" 
 
-# create a cursor object to interact with the database
-cursor_obj = connection_obj.cursor()
+    # connect to the SQLite database
+    connection_obj = sqlite3.connect("mainframe.db")
 
-# read the SQL file
-with open(sql_file_path, "r", encoding="utf-8") as sql_file:
-    sql_script = sql_file.read()
+    # create a cursor object to interact with the database
+    cursor_obj = connection_obj.cursor()
 
-# execute the SQL script
-cursor_obj.executescript(sql_script)
+    # read the SQL file
+    with open(sql_file_path, "r", encoding="utf-8") as sql_file:
+        sql_script = sql_file.read()
 
-# commit changes
-connection_obj.commit()
+    # execute the SQL script
+    cursor_obj.executescript(sql_script)
 
-print("Database schema has been created from SQL file.")
+    # commit changes
+    connection_obj.commit()
 
-# close the connection to the database
-connection_obj.close()
+    print("Database schema has been created from SQL file.")
+
+    # close the connection to the database
+    connection_obj.close()

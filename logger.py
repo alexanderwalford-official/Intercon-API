@@ -14,7 +14,8 @@ class systemlogger:
         else:
             str_prep = str_prep + "[ ! ] "
         str_prep = str_prep + " [" + dt.datetime.now().strftime("%d/%m/%Y, %H:%M:%S") + "] "
-        str_prep = str_prep + value
+        str_prep = str_prep + value + "\n"
+        print(str_prep)
         if not os.path.exists(SYSTEM_LOG_FILE_NAME):
             open(SYSTEM_LOG_FILE_NAME, "x")
         with open(SYSTEM_LOG_FILE_NAME, "a") as f:
