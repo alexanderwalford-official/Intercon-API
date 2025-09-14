@@ -1,1 +1,0 @@
-sudo docker run -d --restart unless-stopped -p 8000:8000 3e4b6a20aef6
