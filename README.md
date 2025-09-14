@@ -10,4 +10,4 @@ If you wish to deploy on a different port then change the values in the Dockerfi
 2. Set / create .env file with UPDATE_URL = YOUR_URL_HERE
 3. Run: `make build`
 4. Record the image name that was printed.
-4. Start the container: `sudo docker run -d --restart unless-stopped -p 8000:8000 container_name`
+4. Start the container: `sudo docker run -d --restart unless-stopped -p 443:443 container_name`
