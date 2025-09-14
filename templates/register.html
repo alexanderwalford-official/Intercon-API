@@ -70,6 +70,7 @@
             success: function (response) {
                 console.log("Success:", response);
                 alert("User registered successfully!");
+                window.location = window.location.origin + "/login/";
             },
             error: function (xhr, status, error) {
                 console.error("Error:", error);
