@@ -24,9 +24,18 @@ class DataItemTable(BaseModel):
 
 class DataItemTableSave(BaseModel):
     api_key: str
+    uid: str
     table: str
     cols: str
     vals: str
 
 class QueryItem(BaseModel):
     query: str
+
+class SaveDataItem(BaseModel):
+    api_key: str
+    auth_key: str
+    file_name: str
+    file_content: str
+    folder: str
+    notes: str

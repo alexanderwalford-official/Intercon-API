@@ -117,7 +117,6 @@ def get_custom_query(vals: DataItemTable):
     if methods.check_api_key(vals.api_key):
         if vals.table not in blocked_tables:
             conn, cursor = methods.connect_db()
-            logger.LogEntry("UID: " + vals.uid)
             query = vals.action + " " + vals.identifier + " FROM " + vals.table + " WHERE " + vals.identifier + " = " + vals.match
             cursor.execute(query)
             output = cursor.fetchall()
@@ -141,11 +140,10 @@ def save_custom_query(vals: DataItemTableSave):
     if methods.check_api_key(vals.api_key):
         if vals.table not in blocked_tables:
             conn, cursor = methods.connect_db()
-            logger.LogEntry("UID: " + vals.uid)
-            query = "INSERT INTO " + vals.table + "( " + vals.cols + ",) VALUES (" + vals.vals + ",)"
+            query = "INSERT INTO " + vals.table + "( " + vals.cols + ", uid, oid) VALUES ('" + vals.vals + "', '" + vals.uid + "', '" + vals.cols + "')"
             cursor.execute(query)
-            output = cursor.fetchall()
-            return output
+            methods.close_db(conn, cursor)
+            return {"OK"}
         else:
             return {"Error: You tried to access a restricted table!"}
     else:
@@ -229,3 +227,8 @@ def admin_query(response: Response, request: Request, vals:QueryItem):
         return data
     else:
         return {"Invalid permission!"}
+    
+@app.post("/save-data")
+def game_save_data(response: Response, request: Request, vals:SaveDataItem):
+
+    return

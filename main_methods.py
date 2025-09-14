@@ -22,9 +22,10 @@ class main_methods:
         conn, cursor = self.connect_db()
         query = "SELECT key from api_keys WHERE key = ?"
         try:
-            cursor.execute(query, (key))
-            output = cursor.fetchall()
-            if output.count:
+            cursor.execute(query, (key,))
+            output = cursor.fetchone()
+            self.close_db(conn, cursor)
+            if output:
                 return True
             else:
                 return False
