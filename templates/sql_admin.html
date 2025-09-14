@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Intercon API - Admin</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+</head>
+  <body style="background-color: #262626;">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark" style="background-color: black !important;">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">Intercon</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Home</a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link" href="#">Features</a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link" href="#">Pricing</a>
+            </li>
+            <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Docs
+            </a>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="/docs/" target="_blank">API Documentation</a></li>
+            </ul>
+            </li>
+        </ul>
+        </div>
+    </div>
+    </nav>
+    <div style="padding: 2%; color: white;">
+        <h1>Admin Panel</h1>
+        <p>Active users:</p>
+        {% for user in users %}
+            <p>Email: {{ user[1] }}</p>
+            <p>Priv: {{ user[0] }}</p>
+            <br>
+        {% endfor %}
+        <br>
+        <p>Your API Key:</p>
+        {% for key in account_keys %}
+            <p>{{ key[2] }}</p>
+        {% endfor %}
+        <br>
+        <p>Database Query</p>
+        <form id="registerForm">
+            <p>Query: <input type="text" name="query"></input></p>
+            <button type="submit" class="btn btn-danger">Execute Query</button>
+        </form>
+        <p id="query_repsonse_text"></p>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+  </body>
+</html>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $("#registerForm").on("submit", function (e) {
+        e.preventDefault(); // stop default form submission
+
+        var query = $("input[name='query']").val();
+
+        $.ajax({
+            url: window.location.origin + "/admin-query/",
+            method: "POST",
+            timeout: 0,
+            headers: {
+                "Content-Type": "application/json"
+            },
+            data: JSON.stringify({
+                query: query,
+            }),
+            success: function (response) {
+                console.log("Success:", response);
+                document.getElementById("query_repsonse_text").innerHTML = response;
+            },
+            error: function (xhr, status, error) {
+                console.error("Error:", error);
+                alert("Something went wrong.");
+            }
+        });
+    });
+</script>

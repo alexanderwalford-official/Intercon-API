@@ -28,3 +28,5 @@ class DataItemTableSave(BaseModel):
     cols: str
     vals: str
 
+class QueryItem(BaseModel):
+    query: str

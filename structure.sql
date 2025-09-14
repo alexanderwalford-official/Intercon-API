@@ -30,12 +30,24 @@ CREATE TABLE IF NOT EXISTS product_versions (
 -- Table: API keys
 CREATE TABLE IF NOT EXISTS api_keys (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    key TEXT NOT NULL
+    email VARCHAR(255) NOT NULL,
+    key TEXT NOT NULL,
+    perms INT NOT NULL,
+    FOREIGN KEY (email) REFERENCES users(email)
 );
 
 -- Table: Users
 CREATE TABLE IF NOT EXISTS users (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     email VARCHAR(255) NOT NULL,
+    perms INT,
     password VARCHAR(255) NOT NULL
+);
+
+-- Table: auth_tokens
+CREATE TABLE IF NOT EXISTS auth_tokens (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    uid VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    FOREIGN KEY (email) REFERENCES users(email)
 );
