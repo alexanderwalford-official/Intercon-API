@@ -1,0 +1,13 @@
+version: "3.9"
+
+services:
+  app:
+    container_name: intercon_api
+    build: 
+      context: .                      # Build from current directory
+      dockerfile: Dockerfile          # Explicit Dockerfile (optional)
+    image: intercon_api:latest               # Name:tag for the image
+    restart: unless-stopped
+    ports:
+      - "443:443"
+      - "8080:8080"

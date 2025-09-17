@@ -15,5 +15,6 @@ COPY . .
 # expose your port
 EXPOSE 443
 
-# start the app with SSL
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "443", "--ssl-keyfile", "key.pem", "--ssl-certfile", "cert.pem"]
+COPY entrypoint.sh /app/entrypoint.sh
+RUN chmod +x /app/entrypoint.sh
+CMD ["/app/entrypoint.sh"]
