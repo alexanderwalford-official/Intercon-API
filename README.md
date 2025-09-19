@@ -8,4 +8,4 @@ You can run the application using the make command and then go to http://127.0.0
 If you wish to deploy on a different port then change the values in the Dockerfile.
 1. Copy "key.pem" and "cert.pem" into the project.
 2. Set / create .env file with UPDATE_URL = YOUR_URL_HERE
-3. Start the container: `sudo docker-compose up -d --build`
+3. Start the container: `sudo make deploy`

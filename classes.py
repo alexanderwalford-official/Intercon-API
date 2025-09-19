@@ -40,7 +40,7 @@ class SaveDataItem(BaseModel):
     folder: str
     notes: str
 
-
 class SaveDataItemGet(BaseModel):
     api_key: str
     uid: str
+

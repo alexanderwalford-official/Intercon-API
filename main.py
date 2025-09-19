@@ -255,3 +255,14 @@ def get_save_data(vals: SaveDataItemGet):
         return data
     else:
         return {"Error: Invalid API key!"}
+    
+@app.get("/get_product_version/{product_id}")
+def get_product_version(product_id):
+    # search DB to get latest version
+    query = "SELECT version FROM product_versions WHERE product = ?"
+    conn, cursor = methods.connect_db()
+    cursor.execute(query, (product_id,))
+    output = cursor.fetchone()
+    conn.commit()
+    methods.close_db(conn, cursor)
+    return output
