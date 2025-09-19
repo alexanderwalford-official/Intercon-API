@@ -24,6 +24,8 @@ CREATE TABLE IF NOT EXISTS product_versions (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     product VARCHAR(255) NOT NULL,
     version VARCHAR(20) NOT NULL,
+    url TEXT,
+    hash VARCHAR(255) NOT NULL,
     changelog TEXT NOT NULL
 );
 
