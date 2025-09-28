@@ -43,6 +43,10 @@ def register(request: Request):
 def login(request: Request):
     return templates.TemplateResponse("login.html", {"request": request})
 
+@app.get("/privacy")
+def privacy(request: Request):
+    return templates.TemplateResponse("privacy.html", {"request": request})
+
 @app.get("/admin")
 def admin(request: Request):
     email = methods.get_admin_email_from_auth(request)
