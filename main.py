@@ -8,6 +8,7 @@ from logger import *
 import datetime as dt
 from passlib.context import CryptContext
 import uuid
+from fastapi.middleware.cors import CORSMiddleware
 
 API_STATUS = "ONLINE"
 
